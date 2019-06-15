@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    boardview.cpp
+    boardview.cpp \
+    boardmodel.cpp
 
 HEADERS += \
         mainwindow.h \
-    boardview.h
+    boardview.h \
+    boardmodel.h
 
 FORMS += \
         mainwindow.ui
