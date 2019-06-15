@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>286</width>
+    <width>309</width>
     <height>276</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>286</width>
+    <width>320</width>
     <height>276</height>
    </size>
   </property>
@@ -26,12 +26,12 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>240</y>
-      <width>265</width>
+      <width>291</width>
       <height>26</height>
      </rect>
     </property>
@@ -50,7 +50,7 @@
      <item>
       <widget class="QPushButton" name="start_again_btn">
        <property name="text">
-        <string>PushButton</string>
+        <string>Заново</string>
        </property>
        <property name="icon">
         <iconset resource="resources.qrc">
@@ -61,7 +61,7 @@
      <item>
       <widget class="QPushButton" name="back_move_btn">
        <property name="text">
-        <string>PushButton</string>
+        <string>Назад</string>
        </property>
        <property name="icon">
         <iconset resource="resources.qrc">
@@ -71,9 +71,27 @@
      </item>
     </layout>
    </widget>
+   <widget class="BoardView" name="board_view" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>291</width>
+      <height>221</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>BoardView</class>
+   <extends>QWidget</extends>
+   <header>boardview.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resources.qrc"/>
  </resources>
