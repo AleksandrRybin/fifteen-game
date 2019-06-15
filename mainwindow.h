@@ -15,6 +15,9 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_is_rnd_chckbx_stateChanged(int new_state);
+
 private:
     Ui::MainWindow *ui;
 };
