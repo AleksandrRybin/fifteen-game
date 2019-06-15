@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>309</width>
-    <height>276</height>
+    <width>280</width>
+    <height>311</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>286</width>
-    <height>276</height>
+    <width>280</width>
+    <height>311</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>320</width>
-    <height>276</height>
+    <width>280</width>
+    <height>311</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -29,61 +29,123 @@
    <iconset resource="resources.qrc">
     <normaloff>:/icons/img/internet.png</normaloff>:/icons/img/internet.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(233, 255, 220);</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>240</y>
-      <width>291</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="main_btns_layout">
-     <item>
-      <widget class="QPushButton" name="new_game_btn">
-       <property name="text">
-        <string>Новая игра</string>
-       </property>
-       <property name="icon">
-        <iconset resource="resources.qrc">
-         <normaloff>:/icons/img/new-commercial-star-label.png</normaloff>:/icons/img/new-commercial-star-label.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="start_again_btn">
-       <property name="text">
-        <string>Заново</string>
-       </property>
-       <property name="icon">
-        <iconset resource="resources.qrc">
-         <normaloff>:/icons/img/replay.png</normaloff>:/icons/img/replay.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="back_move_btn">
-       <property name="text">
-        <string>Назад</string>
-       </property>
-       <property name="icon">
-        <iconset resource="resources.qrc">
-         <normaloff>:/icons/img/return.png</normaloff>:/icons/img/return.png</iconset>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="BoardView" name="board_view" native="true">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>291</width>
+      <width>261</width>
       <height>221</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>241</y>
+      <width>261</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="main_btns_layout">
+       <item>
+        <widget class="QPushButton" name="new_game_btn">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Новая игра</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/icons/img/new-commercial-star-label.png</normaloff>:/icons/img/new-commercial-star-label.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="start_again_btn">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Заново</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/icons/img/replay.png</normaloff>:/icons/img/replay.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="back_move_btn">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Назад</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/icons/img/return.png</normaloff>:/icons/img/return.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="complexity_lbl">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Сложность</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="complexity_num_lbl">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="complexity_num_sldr">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>
@@ -99,5 +161,22 @@
  <resources>
   <include location="resources.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>complexity_num_sldr</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>complexity_num_lbl</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>291</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>76</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
