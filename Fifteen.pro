@@ -27,13 +27,15 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    boardview.cpp \
-    boardmodel.cpp
+        boardview.cpp \
+        boardmodel.cpp \
+        fifteenpushbutton.cpp
 
 HEADERS += \
         mainwindow.h \
-    boardview.h \
-    boardmodel.h
+        boardview.h \
+        boardmodel.h \
+        fifteenpushbutton.h
 
 FORMS += \
         mainwindow.ui
@@ -44,4 +46,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    resources.qrc
+        resources.qrc
