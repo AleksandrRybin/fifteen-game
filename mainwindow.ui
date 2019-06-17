@@ -6,21 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>280</width>
-    <height>332</height>
+    <width>293</width>
+    <height>314</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>280</width>
-    <height>311</height>
+    <width>293</width>
+    <height>314</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>280</width>
-    <height>332</height>
+    <width>293</width>
+    <height>314</height>
    </size>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>14</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Игра &quot;Пятнашки&quot;</string>
@@ -30,16 +35,16 @@
     <normaloff>:/icons/img/internet.png</normaloff>:/icons/img/internet.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(233, 255, 220);</string>
+   <string notr="true">background-color: rgb(220, 255, 200);</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="BoardView" name="board_view" native="true">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>261</width>
-      <height>221</height>
+      <x>20</x>
+      <y>0</y>
+      <width>251</width>
+      <height>241</height>
      </rect>
     </property>
    </widget>
@@ -47,10 +52,15 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>241</y>
-      <width>261</width>
-      <height>86</height>
+      <y>240</y>
+      <width>271</width>
+      <height>71</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
@@ -60,7 +70,9 @@
          <property name="font">
           <font>
            <pointsize>10</pointsize>
+           <weight>50</weight>
            <italic>true</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
@@ -77,7 +89,9 @@
          <property name="font">
           <font>
            <pointsize>10</pointsize>
+           <weight>50</weight>
            <italic>true</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
@@ -94,7 +108,9 @@
          <property name="font">
           <font>
            <pointsize>10</pointsize>
+           <weight>50</weight>
            <italic>true</italic>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
@@ -109,48 +125,14 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QLabel" name="is_rnd_lbl">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Случайная расстановка</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="is_rnd_chckbx">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QLabel" name="complexity_lbl">
          <property name="font">
           <font>
            <pointsize>10</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
@@ -174,6 +156,13 @@
        </item>
        <item>
         <widget class="QSlider" name="complexity_num_sldr">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
