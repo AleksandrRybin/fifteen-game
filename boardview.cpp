@@ -71,7 +71,7 @@ void BoardView::check_game_end()
 {
     auto is_solved = _model->is_solved();
     if (is_solved.first) {
-        auto msg = QStringLiteral("Количество совершённых перестановок: %1").arg(is_solved.second.toUInt());
+        auto msg = QStringLiteral("\n Количество совершённых перестановок: %1").arg(is_solved.second.toUInt());
         QMessageBox::information(this, QString("Игра закончена"), msg);
     }
 }
