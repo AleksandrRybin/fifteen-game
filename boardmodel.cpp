@@ -2,7 +2,7 @@
 
 #include "boardmodel.h"
 
-quint8 BoardModel::_complexity_coef(15);
+quint8 BoardModel::_complexity_coef(30);
 
 BoardModel::BoardModel()
 {
@@ -26,12 +26,15 @@ BoardModel::BoardModel(bool is_rnd, quint16 complexity)
 
         while (_is_solved) {
             auto rnd_result = BoardModel::_gen_board(complexity * BoardModel::_complexity_coef);
+            auto board = rnd_result.first;
+            auto nul_index = rnd_result.second;
+            auto is_solved = BoardModel::_check_solved(board);
 
-            if (!BoardModel::_check_solved(rnd_result.first)) {
+            if (!is_solved) {
                 _is_solved = false;
-                _board = rnd_result.first;
+                _board = board;
                 _start_board = _board;
-                _nul_index = rnd_result.second;
+                _nul_index = nul_index;
             }
         }
     }

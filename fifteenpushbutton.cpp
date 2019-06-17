@@ -8,7 +8,7 @@ FifteenPushButton::FifteenPushButton(QWidget *parent) : QPushButton(parent)
     setFixedSize(QSize(55, 55));
 }
 
-void FifteenPushButton::swap(FifteenPushButton *lhs, FifteenPushButton *rhs)
+void FifteenPushButton::swap_nums(FifteenPushButton *lhs, FifteenPushButton *rhs)
 {
     quint8 tmp_num = lhs->_num;
 
