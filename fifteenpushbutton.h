@@ -12,18 +12,18 @@ public:
 
     static void swap(FifteenPushButton* lhs, FifteenPushButton* rhs);
 
-    uint8_t get_num() const;
-    void set_num(uint8_t num);
+    quint8 get_num() const;
+    void set_num(quint8 num);
 
-    uint8_t get_idx() const;
-    void set_idx(uint8_t idx);
+    quint8 get_idx() const;
+    void set_idx(quint8 idx);
 
 signals:
-    void fifteen_btn_clicked(uint8_t num, uint8_t idx);
+    void fifteen_btn_clicked(quint8 idx);
 
 private:
-    uint8_t _num;
-    uint8_t _idx;
+    quint8 _num;
+    quint8 _idx;
 
     virtual void mousePressEvent(QMouseEvent *e) override;
 };

@@ -1,7 +1,7 @@
 #include "boardmodel.h"
 
 std::random_device BoardModel::_rd;
-uint8_t BoardModel::_complexity_coef(15);
+quint8 BoardModel::_complexity_coef(15);
 
 BoardModel::BoardModel()
 {
@@ -17,7 +17,7 @@ BoardModel::BoardModel()
     _num_shifts = 0;
 }
 
-BoardModel::BoardModel(bool is_rnd, size_t complexity)
+BoardModel::BoardModel(bool is_rnd, quint16 complexity)
     : BoardModel()
 {
     if (is_rnd) {
@@ -46,7 +46,7 @@ QPair<bool, QVariant> BoardModel::is_solved() const
     }
 }
 
-const QVector<uint8_t> &BoardModel::get_board() const
+const QVector<quint8> &BoardModel::get_board() const
 {
     return _board;
 }
@@ -56,7 +56,7 @@ void BoardModel::set_start_board()
     if (_num_shifts != 0) {
         _board = _start_board;
 
-        for (size_t i = 0; i < 16; i++) {
+        for (quint8 i = 0; i < 16; i++) {
             if (_board[i] == 0) {
                 _nul_index = i;
                 break;
@@ -69,10 +69,10 @@ void BoardModel::set_start_board()
     }
 }
 
-QPair<bool, QVariant> BoardModel::move(uint8_t idx)
+QPair<bool, QVariant> BoardModel::move(quint8 idx)
 {
     bool result = false;
-    uint8_t swap_idx;
+    quint8 swap_idx;
 
     if (_nul_index > 3) {
         // Возможно движение вверх
@@ -150,52 +150,66 @@ QPair<bool, QPair<QVariant, QVariant> > BoardModel::back_move()
     }
 }
 
-QPair<QVector<uint8_t>, uint8_t> BoardModel::_gen_board(size_t complexity)
+QPair<QVector<quint8>, quint8> BoardModel::_gen_board(quint16 complexity)
 {
-    QVector<uint8_t> final_state = {1,  2,  3,  4,
+    QVector<quint8> final_state = {1,  2,  3,  4,
                                     5,  6,  7,  8,
                                     9,  10, 11, 12,
                                     13, 14, 15, 0};
-    uint8_t nul_index = 15;
+    quint8 nul_index = 15;
 
     std::mt19937 gen(BoardModel::_rd());
     std::uniform_int_distribution<uint8_t> dist(1, 4);
 
-    for (size_t i = 0; i < complexity; i++) {
+    for (quint16 i = 0; i < complexity; i++) {
         switch (dist(gen)) {
+
         case 1:
+
             // движение вверх
 
             if (nul_index > 3) {
                 qSwap(final_state[nul_index], final_state[nul_index - 4]);
                 nul_index -= 4;
             }
+
             break;
+
         case 2:
+
             // движение вниз
 
             if (nul_index < 12) {
                 qSwap(final_state[nul_index], final_state[nul_index + 4]);
                 nul_index += 4;
             }
+
             break;
+
         case 3:
+
             // движение влево
 
             if (nul_index % 4) {
                 qSwap(final_state[nul_index], final_state[nul_index - 1]);
                 nul_index--;
             }
+
             break;
+
         case 4:
+
             // движение вправо
 
             if (nul_index % 4 != 3) {
                 qSwap(final_state[nul_index], final_state[nul_index + 1]);
                 nul_index++;
             }
+
             break;
+
         default:
+
             break;
         }
     }
@@ -203,11 +217,11 @@ QPair<QVector<uint8_t>, uint8_t> BoardModel::_gen_board(size_t complexity)
     return {final_state, nul_index};
 }
 
-bool BoardModel::_check_solved(const QVector<uint8_t> &board)
+bool BoardModel::_check_solved(const QVector<quint8> &board)
 {
-    uint8_t num_invs = 0;
+    quint8 num_invs = 0;
 
-    for (size_t i = 0; i < 16; i++) {
+    for (quint8 i = 0; i < 16; i++) {
         if (board[i] != (i + 1) % 16) {
             num_invs++;
         }

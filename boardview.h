@@ -17,7 +17,7 @@ public:
     explicit BoardView(QWidget *parent = nullptr);
     ~BoardView();
 
-    void set_new_model(bool is_rnd, size_t complexity);
+    void set_new_model(bool is_rnd, quint16 complexity);
     void set_start_board();
     void back_move();
 
@@ -33,7 +33,7 @@ private:
     BoardModel* _model;
 
 private slots:
-    void move(uint8_t num, uint8_t idx);
+    void move(quint8 idx);
 };
 
 #endif // BOARDVIEW_H

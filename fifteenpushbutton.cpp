@@ -10,18 +10,18 @@ FifteenPushButton::FifteenPushButton(QWidget *parent) : QPushButton(parent)
 
 void FifteenPushButton::swap(FifteenPushButton *lhs, FifteenPushButton *rhs)
 {
-    uint8_t tmp_num = lhs->_num;
+    quint8 tmp_num = lhs->_num;
 
     lhs->set_num(rhs->_num);
     rhs->set_num(tmp_num);
 }
 
-uint8_t FifteenPushButton::get_num() const
+quint8 FifteenPushButton::get_num() const
 {
     return _num;
 }
 
-void FifteenPushButton::set_num(uint8_t num)
+void FifteenPushButton::set_num(quint8 num)
 {
     _num = num;
 
@@ -32,12 +32,12 @@ void FifteenPushButton::set_num(uint8_t num)
     setIconSize(QSize(60, 60));
 }
 
-uint8_t FifteenPushButton::get_idx() const
+quint8 FifteenPushButton::get_idx() const
 {
     return _idx;
 }
 
-void FifteenPushButton::set_idx(uint8_t idx)
+void FifteenPushButton::set_idx(quint8 idx)
 {
     _idx = idx;
 }
@@ -45,6 +45,6 @@ void FifteenPushButton::set_idx(uint8_t idx)
 void FifteenPushButton::mousePressEvent(QMouseEvent *e)
 {
     if (_num != 0) {
-        emit fifteen_btn_clicked(_num, _idx);
+        emit fifteen_btn_clicked(_idx);
     }
 }
