@@ -1,6 +1,7 @@
+#include <QRandomGenerator>
+
 #include "boardmodel.h"
 
-std::random_device BoardModel::_rd;
 quint8 BoardModel::_complexity_coef(15);
 
 BoardModel::BoardModel()
@@ -158,11 +159,10 @@ QPair<QVector<quint8>, quint8> BoardModel::_gen_board(quint16 complexity)
                                     13, 14, 15, 0};
     quint8 nul_index = 15;
 
-    std::mt19937 gen(BoardModel::_rd());
-    std::uniform_int_distribution<uint8_t> dist(1, 4);
+    auto gen = QRandomGenerator::global();
 
     for (quint16 i = 0; i < complexity; i++) {
-        switch (dist(gen)) {
+        switch (gen->bounded(1, 5)) {
 
         case 1:
 

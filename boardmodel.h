@@ -6,8 +6,6 @@
 #include <QPair>
 #include <QStack>
 
-#include <random>
-
 class BoardModel
 {
 public:
@@ -24,7 +22,6 @@ public:
 
 private:
     static QPair<QVector<quint8>, quint8> _gen_board(quint16 complexity);
-    static std::random_device _rd;
     static quint8 _complexity_coef;
 
     static bool _check_solved(const QVector<quint8>& board);
