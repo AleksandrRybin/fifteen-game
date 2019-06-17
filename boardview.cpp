@@ -84,8 +84,8 @@ void BoardView::check_game_end()
 
     if (is_solved) {
         quint64 num_shifts = is_solved_result.second.toUInt();
-        auto msg = QStringLiteral("\n Количество совершённых перестановок: %1").arg(num_shifts);
-        QMessageBox::information(this, QString("Игра закончена"), msg);
+        auto msg = tr("\n Количество совершённых перестановок: %1").arg(num_shifts);
+        QMessageBox::information(this, QString(tr("Игра закончена")), msg);
     }
 }
 
