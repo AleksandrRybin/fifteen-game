@@ -33,10 +33,12 @@ void BoardView::set_new_model(bool is_rnd, quint16 complexity)
         _grid = new QGridLayout(this);
 
         for (quint8 i = 0; i < 16; i++) {
-            _buttons[i] = new FifteenPushButton(this);
-            _grid->addWidget(_buttons[i], i / 4, i % 4);
-            connect(_buttons[i], &FifteenPushButton::fifteen_btn_clicked,
+            auto new_btn = new FifteenPushButton(this);
+            new_btn->set_idx(i);
+            _grid->addWidget(new_btn, i / 4, i % 4);
+            connect(new_btn, &FifteenPushButton::fifteen_btn_clicked,
                     this, &BoardView::move);
+            _buttons[i] = new_btn;
         }
 
         setLayout(_grid);
@@ -45,7 +47,6 @@ void BoardView::set_new_model(bool is_rnd, quint16 complexity)
     auto board = _model->get_board();
 
     for (quint8 i = 0; i < 16; i++) {
-        _buttons[i]->set_idx(i);
         _buttons[i]->set_num(board[i]);
     }
 }
@@ -85,7 +86,7 @@ void BoardView::check_game_end()
     if (is_solved) {
         quint64 num_shifts = is_solved_result.second.toUInt();
         auto msg = tr("\n Количество совершённых перестановок: %1").arg(num_shifts);
-        QMessageBox::information(this, QString(tr("Игра закончена")), msg);
+        QMessageBox::information(this, tr("Игра закончена"), msg);
     }
 }
 
