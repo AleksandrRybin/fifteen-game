@@ -58,50 +58,34 @@ QPair<bool, QVariant> BoardModel::move(int idx) {
     bool result = false;
     int swap_idx;
 
-    if (_nul_index > 3) {
-        // Возможно движение вверх
-
-        if (_nul_index - 4 == idx) {
-            qSwap(_board[_nul_index], _board[_nul_index - 4]);
+    if (_check_direction(_nul_index, DIRECTION::UP)) {
+        if (_check_is_neighbour(_nul_index, idx, DIRECTION::UP)) {
             swap_idx = _nul_index;
-            _nul_index -= 4;
-
+            _make_move(_board, _nul_index, DIRECTION::UP);
             result = true;
         }
     }
 
-    if (_nul_index < 12) {
-        // Возможно движение вниз
-
-        if (_nul_index + 4 == idx) {
-            qSwap(_board[_nul_index], _board[_nul_index + 4]);
+    if (_check_direction(_nul_index, DIRECTION::DOWN)) {
+        if (_check_is_neighbour(_nul_index, idx, DIRECTION::DOWN)) {
             swap_idx = _nul_index;
-            _nul_index += 4;
-
+            _make_move(_board, _nul_index, DIRECTION::DOWN);
             result = true;
         }
     }
 
-    if (_nul_index % 4) {
-        // Возможно движение влево
-
-        if (_nul_index - 1 == idx) {
-            qSwap(_board[_nul_index], _board[_nul_index - 1]);
+    if (_check_direction(_nul_index, DIRECTION::LEFT)) {
+        if (_check_is_neighbour(_nul_index, idx, DIRECTION::LEFT)) {
             swap_idx = _nul_index;
-            _nul_index--;
-
+            _make_move(_board, _nul_index, DIRECTION::LEFT);
             result = true;
         }
     }
 
-    if (_nul_index % 4 != 3) {
-        // Возможно движение вправо
-
-        if (_nul_index + 1 == idx) {
-            qSwap(_board[_nul_index], _board[_nul_index + 1]);
+    if (_check_direction(_nul_index, DIRECTION::RIGHT)) {
+        if (_check_is_neighbour(_nul_index, idx, DIRECTION::RIGHT)) {
             swap_idx = _nul_index;
-            _nul_index++;
-
+            _make_move(_board, _nul_index, DIRECTION::RIGHT);
             result = true;
         }
     }
@@ -133,65 +117,103 @@ QPair<bool, QPair<QVariant, QVariant> > BoardModel::back_move() {
 
 QPair<QVector<int>, int> BoardModel::_gen_board(int complexity) {
     auto final_state = _get_solved_board();
-
     int nul_index = GAME_SIZE - 1;
 
-    auto gen = QRandomGenerator::global();
-
     for (int i = 0; i < complexity; i++) {
-        switch (gen->bounded(1, 5)) {
-
-        case 1:
-
-            // движение вверх
-
-            if (nul_index > 3) {
-                qSwap(final_state[nul_index], final_state[nul_index - 4]);
-                nul_index -= 4;
-            }
-
-            break;
-
-        case 2:
-
-            // движение вниз
-
-            if (nul_index < 12) {
-                qSwap(final_state[nul_index], final_state[nul_index + 4]);
-                nul_index += 4;
-            }
-
-            break;
-
-        case 3:
-
-            // движение влево
-
-            if (nul_index % 4) {
-                qSwap(final_state[nul_index], final_state[nul_index - 1]);
-                nul_index--;
-            }
-
-            break;
-
-        case 4:
-
-            // движение вправо
-
-            if (nul_index % 4 != 3) {
-                qSwap(final_state[nul_index], final_state[nul_index + 1]);
-                nul_index++;
-            }
-
-            break;
-
-        default:
-
-            break;
-        }
+        _make_move(final_state, nul_index, _gen_direction());
     }
 
     return {final_state, nul_index};
+}
+
+bool BoardModel::_check_direction(const int nul_idx, const DIRECTION direction) {
+    if (direction == DIRECTION::UP) {
+        return nul_idx > _GAME_SHAPE - 1;
+    } else if (direction == DIRECTION::DOWN) {
+        return nul_idx < GAME_SIZE - _GAME_SHAPE;
+    } else if (direction == DIRECTION::LEFT) {
+        return  nul_idx % _GAME_SHAPE != 0;
+    } else if (direction == DIRECTION::RIGHT) {
+        return nul_idx % _GAME_SHAPE != _GAME_SHAPE - 1;
+    } else {
+        return false;
+    }
+}
+
+bool BoardModel::_check_is_neighbour(const int lhs, const int rhs, const DIRECTION direction) {
+    bool result = false;
+    switch (direction) {
+
+        case DIRECTION::UP:
+
+             result =  lhs - _GAME_SHAPE == rhs;
+             if (!result) {
+                 result = rhs - _GAME_SHAPE == lhs;
+             }
+             break;
+
+        case DIRECTION::DOWN:
+
+            result = lhs + _GAME_SHAPE == rhs;
+            if (!result) {
+                result = rhs + _GAME_SHAPE == lhs;
+            }
+            break;
+
+        case DIRECTION::LEFT:
+
+            result = lhs - 1 == rhs;
+            if (!result) {
+                result = rhs - 1 == lhs;
+            }
+            break;
+
+        case DIRECTION::RIGHT:
+
+            result = lhs + 1 == rhs;
+            if (!result) {
+                result = rhs + 1 == lhs;
+            }
+            break;
+    }
+
+    return result;
+}
+
+bool BoardModel::_make_move(QVector<int> &board, int& nul_idx, const DIRECTION direction) {
+    if (_check_direction(nul_idx, direction)) {
+        if (direction == DIRECTION::UP) {
+            qSwap(board[nul_idx], board[nul_idx - _GAME_SHAPE]);
+            nul_idx -= _GAME_SHAPE;
+        } else if (direction == DIRECTION::DOWN) {
+            qSwap(board[nul_idx], board[nul_idx + _GAME_SHAPE]);
+            nul_idx += _GAME_SHAPE;
+        } else if (direction == DIRECTION::LEFT) {
+            qSwap(board[nul_idx], board[nul_idx - 1]);
+            nul_idx--;
+        } else if (direction == DIRECTION::RIGHT) {
+            qSwap(board[nul_idx], board[nul_idx + 1]);
+            nul_idx++;
+        }
+
+        return true;
+    } else {
+        return false;
+    }
+}
+
+BoardModel::DIRECTION BoardModel::_gen_direction() {
+    auto gen = QRandomGenerator::global();
+    switch (gen->bounded(1, 5)) {
+        case 1:
+            return DIRECTION::UP;
+        case 2:
+            return DIRECTION::DOWN;
+        case 3:
+            return DIRECTION::LEFT;
+        case 4:
+            return DIRECTION::RIGHT;
+    }
 }
 
 QVector<int> BoardModel::_get_solved_board() {

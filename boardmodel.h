@@ -9,8 +9,9 @@
 // модель игры
 class BoardModel
 {
+    static constexpr int _GAME_SHAPE = 4;
 public:
-    static constexpr int GAME_SIZE = 16;
+    static constexpr int GAME_SIZE = _GAME_SHAPE * _GAME_SHAPE;
 
     BoardModel();
 
@@ -40,6 +41,13 @@ public:
     QPair<bool, QPair<QVariant, QVariant>> back_move();
 
 private:
+    enum class DIRECTION {
+        UP = 1,
+        DOWN,
+        LEFT,
+        RIGHT
+    };
+
     // коэффицент сложности
     // количество перестановок при генерации = complexity * _complexity_coef
     static constexpr int _COMPLEXITY_COEF = 30;
@@ -47,8 +55,20 @@ private:
     // пустой элемент
     static constexpr int _EMPTY_ELEMENT = 0;
 
+    // проверить возможна ли перестановка в этом направлении
+    static bool _check_direction(const int nul_idx, const DIRECTION direction);
+
+    // проверить являются ли элементы по данным индексам соседями в данном направлении
+    static bool _check_is_neighbour(const int lhs, const int rhs, const DIRECTION direction);
+
+    // сделать перестановку если возможно
+    static bool _make_move(QVector<int>& board, int& nul_idx, const DIRECTION direction);
+
     // получить решённую перестановку
     static QVector<int> _get_solved_board();
+
+    // получить случайное направление
+    static DIRECTION _gen_direction();
 
     // сгенерировать расстановку
     // complexity - сложность генерируемой расстановки
