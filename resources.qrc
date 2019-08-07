@@ -18,20 +18,8 @@
         <file>img/15.jpg</file>
     </qresource>
     <qresource prefix="/icons">
-        <file>img/clear.png</file>
-        <file>img/exit.png</file>
-        <file>img/go.png</file>
-        <file>img/info.png</file>
         <file>img/internet.png</file>
-        <file>img/main.png</file>
-        <file>img/main_menu_about.png</file>
-        <file>img/open.png</file>
-        <file>img/qt.png</file>
-        <file>img/save.png</file>
-        <file>img/search.png</file>
-        <file>img/new-commercial-star-label.png</file>
         <file>img/replay.png</file>
-        <file>img/return.png</file>
         <file>img/brain.png</file>
         <file>img/back.png</file>
         <file>img/new.png</file>
