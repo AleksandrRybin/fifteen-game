@@ -28,7 +28,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Fifteen Puzzle Game</string>
+   <string>Игра &quot;Пятнашки&quot;</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">

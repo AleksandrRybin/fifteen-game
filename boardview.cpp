@@ -85,8 +85,8 @@ void BoardView::check_game_end()
 
     if (is_solved) {
         quint64 num_shifts = is_solved_result.second.toUInt();
-        auto msg = tr("You have completed the puzzle" "\n" "and used %1 shifts").arg(num_shifts);
-        QMessageBox::information(this, tr("Game end"), msg);
+        auto msg = tr("Задача решена." "\n" "Использовано %1 перестановок.").arg(num_shifts);
+        QMessageBox::information(this, tr("Игра закончена"), msg);
     }
 }
 
