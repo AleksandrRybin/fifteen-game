@@ -5,7 +5,7 @@
 
 FifteenPushButton::FifteenPushButton(QWidget *parent) : QPushButton(parent)
 {
-    setFixedSize(QSize(55, 55));
+    setFixedSize(QSize(57, 55));
 }
 
 void FifteenPushButton::swap_nums(FifteenPushButton *lhs, FifteenPushButton *rhs)

@@ -18,7 +18,6 @@
         <file>img/15.jpg</file>
     </qresource>
     <qresource prefix="/icons">
-        <file>img/binary-code.png</file>
         <file>img/clear.png</file>
         <file>img/exit.png</file>
         <file>img/go.png</file>
@@ -33,5 +32,8 @@
         <file>img/new-commercial-star-label.png</file>
         <file>img/replay.png</file>
         <file>img/return.png</file>
+        <file>img/brain.png</file>
+        <file>img/back.png</file>
+        <file>img/new.png</file>
     </qresource>
 </RCC>
