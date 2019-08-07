@@ -2,81 +2,61 @@
 
 #include "boardmodel.h"
 
-quint8 BoardModel::_complexity_coef(30);
-
 BoardModel::BoardModel()
-{
-    _board = {1,  2,  3,  4,
-              5,  6,  7,  8,
-              9,  10, 11, 12,
-              13, 14, 15, 0};
+    : _board(_get_solved_board()),
+      _nul_index(GAME_SIZE - 1),
+      _is_solved(true),
+      _start_nul_index(_nul_index),
+      _start_is_solved(_is_solved),
+      _num_shifts(0),
+      _states{} {}
 
-    _start_board = _board;
-
-    _nul_index = 15;
-    _is_solved = true;
-    _num_shifts = 0;
-}
-
-BoardModel::BoardModel(bool is_rnd, quint16 complexity)
-    : BoardModel()
-{
+BoardModel::BoardModel(bool is_rnd, int complexity)
+    : BoardModel() {
     if (is_rnd) {
-        _states.reserve(complexity * BoardModel::_complexity_coef);
+        _states.reserve(complexity * _COMPLEXITY_COEF);
 
         while (_is_solved) {
-            auto rnd_result = BoardModel::_gen_board(complexity * BoardModel::_complexity_coef);
-            auto board = rnd_result.first;
-            auto nul_index = rnd_result.second;
-            auto is_solved = BoardModel::_check_solved(board);
+            const auto rnd_result = _gen_board(complexity * _COMPLEXITY_COEF);
+            const auto board      = rnd_result.first;
+            const auto nul_index  = rnd_result.second;
+            const auto is_solved  = _check_solved(board);
 
             if (!is_solved) {
-                _is_solved = false;
-                _board = board;
+                _is_solved   = is_solved;
+                _board       = board;
                 _start_board = _board;
-                _nul_index = nul_index;
+                _nul_index   = nul_index;
             }
         }
     }
 }
 
-QPair<bool, QVariant> BoardModel::is_solved() const
-{
+QPair<bool, QVariant> BoardModel::is_solved() const noexcept {
     if (_is_solved) {
         return {true, QVariant(_num_shifts)};
-    }
-    else {
+    } else {
         return {false, QVariant()};
     }
 }
 
-const QVector<quint8> &BoardModel::get_board() const
-{
+const QVector<int>& BoardModel::get_board() const noexcept {
     return _board;
 }
 
-void BoardModel::set_start_board()
-{
+void BoardModel::set_start_board() {
     if (_num_shifts != 0) {
-        _board = _start_board;
-
-        for (quint8 i = 0; i < 16; i++) {
-            if (_board[i] == 0) {
-                _nul_index = i;
-                break;
-            }
-        }
-
-        _is_solved = BoardModel::_check_solved(_board);
+        _board      = _start_board;
+        _nul_index  = _start_nul_index;
+        _is_solved  = _start_is_solved;
         _num_shifts = 0;
         _states.clear();
     }
 }
 
-QPair<bool, QVariant> BoardModel::move(quint8 idx)
-{
+QPair<bool, QVariant> BoardModel::move(int idx) {
     bool result = false;
-    quint8 swap_idx;
+    int swap_idx;
 
     if (_nul_index > 3) {
         // Возможно движение вверх
@@ -127,44 +107,38 @@ QPair<bool, QVariant> BoardModel::move(quint8 idx)
     }
 
     if (result) {
-        _is_solved = BoardModel::_check_solved(_board);
+        _is_solved = _check_solved(_board);
         _num_shifts++;
         _states.push({idx, swap_idx});
 
         return {true, QVariant(swap_idx)};
-    }
-    else {
+    } else {
         return {false, QVariant()};
     }
 }
 
-QPair<bool, QPair<QVariant, QVariant> > BoardModel::back_move()
-{
+QPair<bool, QPair<QVariant, QVariant> > BoardModel::back_move() {
     if (!_states.empty()) {
-        auto prev = _states.pop();
+        const auto prev = _states.pop();
         qSwap(_board[prev.first], _board[prev.second]);
         _nul_index = prev.second;
         _num_shifts--;
-        _is_solved = BoardModel::_check_solved(_board);
+        _is_solved = _check_solved(_board);
 
         return {true, {QVariant(prev.first), QVariant(prev.second)}};
-    }
-    else {
+    } else {
         return {false, {QVariant(), QVariant()}};
     }
 }
 
-QPair<QVector<quint8>, quint8> BoardModel::_gen_board(quint16 complexity)
-{
-    QVector<quint8> final_state = {1,  2,  3,  4,
-                                    5,  6,  7,  8,
-                                    9,  10, 11, 12,
-                                    13, 14, 15, 0};
-    quint8 nul_index = 15;
+QPair<QVector<int>, int> BoardModel::_gen_board(int complexity) {
+    auto final_state = _get_solved_board();
+
+    int nul_index = GAME_SIZE - 1;
 
     auto gen = QRandomGenerator::global();
 
-    for (quint16 i = 0; i < complexity; i++) {
+    for (int i = 0; i < complexity; i++) {
         switch (gen->bounded(1, 5)) {
 
         case 1:
@@ -220,12 +194,21 @@ QPair<QVector<quint8>, quint8> BoardModel::_gen_board(quint16 complexity)
     return {final_state, nul_index};
 }
 
-bool BoardModel::_check_solved(const QVector<quint8> &board)
-{
-    quint8 num_invs = 0;
+QVector<int> BoardModel::_get_solved_board() {
+    QVector<int> final_state(GAME_SIZE);
+    for (int i = 0; i < GAME_SIZE; i++) {
+        final_state[i] = i + 1;
+    }
+    final_state[GAME_SIZE - 1] = _EMPTY_ELEMENT;
 
-    for (quint8 i = 0; i < 16; i++) {
-        if (board[i] != (i + 1) % 16) {
+    return final_state;
+}
+
+bool BoardModel::_check_solved(const QVector<int>& board) {
+    int num_invs = 0;
+
+    for (int i = 0; i < GAME_SIZE; i++) {
+        if (board[i] != (i + 1) % GAME_SIZE) {
             num_invs++;
         }
     }
