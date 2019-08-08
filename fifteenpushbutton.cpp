@@ -1,6 +1,4 @@
 #include <QString>
-#include <QStyle>
-#include <QColor>
 
 #include "fifteenpushbutton.h"
 #include "boardmodel.h"
@@ -8,7 +6,7 @@
 FifteenPushButton::FifteenPushButton(QWidget *parent)
     : QPushButton(parent) {
     // цвета из w3.css https://www.w3schools.com/w3css
-    setStyleSheet("FifteenPushButton {width: 60px; height: 60px ; "
+    setStyleSheet("FifteenPushButton {width: 55px; height: 55px ; "
                   "font-size : 20px; background-color: #f0e68c; } "
                   "FifteenPushButton:hover { border: 3px solid #ff5722; }"
     );
