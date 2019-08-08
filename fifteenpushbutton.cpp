@@ -1,11 +1,17 @@
 #include <QString>
+#include <QStyle>
+#include <QColor>
 
 #include "fifteenpushbutton.h"
 #include "boardmodel.h"
 
 FifteenPushButton::FifteenPushButton(QWidget *parent)
     : QPushButton(parent) {
-    setFixedSize(QSize(57, 55));
+    // цвета из w3.css https://www.w3schools.com/w3css
+    setStyleSheet("FifteenPushButton {width: 60px; height: 60px ; "
+                  "font-size : 20px; background-color: #f0e68c; } "
+                  "FifteenPushButton:hover { border: 3px solid #ff5722; }"
+    );
 }
 
 void FifteenPushButton::swap_nums(FifteenPushButton *lhs, FifteenPushButton *rhs) noexcept {
@@ -20,7 +26,15 @@ int FifteenPushButton::get_num() const noexcept {
 
 void FifteenPushButton::set_num(int num) noexcept {
     _num = num;
-    setText(QString::number(_num));
+    if (_num != BoardModel::EMPTY_ELEMENT) {
+        setText(QString::number(_num));
+        if (!isEnabled()) {
+            setEnabled(true);
+        }
+    } else {
+        setText("");
+        setEnabled(false);
+    }
 }
 
 int FifteenPushButton::get_idx() const noexcept {
