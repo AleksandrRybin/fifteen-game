@@ -9,9 +9,15 @@
 // модель игры
 class BoardModel
 {
-    static constexpr int _GAME_SHAPE = 4;
 public:
-    static constexpr int GAME_SIZE = _GAME_SHAPE * _GAME_SHAPE;
+    // размер стороны игрового квадрата
+    static constexpr int GAME_SHAPE = 4;
+
+    // размер поля
+    static constexpr int GAME_SIZE = GAME_SHAPE * GAME_SHAPE;
+
+    // пустой элемент
+    static constexpr int EMPTY_ELEMENT = 0;
 
     BoardModel();
 
@@ -52,13 +58,11 @@ private:
     // количество перестановок при генерации = complexity * _complexity_coef
     static constexpr int _COMPLEXITY_COEF = 30;
 
-    // пустой элемент
-    static constexpr int _EMPTY_ELEMENT = 0;
-
     // проверить возможна ли перестановка в этом направлении
     static bool _check_direction(const int nul_idx, const DIRECTION direction);
 
-    // проверить являются ли элементы по данным индексам соседями в данном направлении
+    // проверить является ли элемент по индексу rhs
+    // соседом элементу по индексу lhs в данном направлении
     static bool _check_is_neighbour(const int lhs, const int rhs, const DIRECTION direction);
 
     // сделать перестановку если возможно

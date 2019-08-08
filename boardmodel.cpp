@@ -56,38 +56,16 @@ void BoardModel::set_start_board() {
 
 QPair<bool, QVariant> BoardModel::move(int idx) {
     bool result = false;
-    int swap_idx;
+    const int swap_idx = _nul_index;
 
-    if (_check_direction(_nul_index, DIRECTION::UP)) {
-        if (_check_is_neighbour(_nul_index, idx, DIRECTION::UP)) {
-            swap_idx = _nul_index;
-            _make_move(_board, _nul_index, DIRECTION::UP);
-            result = true;
-        }
-    }
-
-    if (_check_direction(_nul_index, DIRECTION::DOWN)) {
-        if (_check_is_neighbour(_nul_index, idx, DIRECTION::DOWN)) {
-            swap_idx = _nul_index;
-            _make_move(_board, _nul_index, DIRECTION::DOWN);
-            result = true;
-        }
-    }
-
-    if (_check_direction(_nul_index, DIRECTION::LEFT)) {
-        if (_check_is_neighbour(_nul_index, idx, DIRECTION::LEFT)) {
-            swap_idx = _nul_index;
-            _make_move(_board, _nul_index, DIRECTION::LEFT);
-            result = true;
-        }
-    }
-
-    if (_check_direction(_nul_index, DIRECTION::RIGHT)) {
-        if (_check_is_neighbour(_nul_index, idx, DIRECTION::RIGHT)) {
-            swap_idx = _nul_index;
-            _make_move(_board, _nul_index, DIRECTION::RIGHT);
-            result = true;
-        }
+    if (_check_is_neighbour(_nul_index, idx, DIRECTION::UP)) {
+        result = _make_move(_board, _nul_index, DIRECTION::UP);
+    } else if (_check_is_neighbour(_nul_index, idx, DIRECTION::DOWN)) {
+        result = _make_move(_board, _nul_index, DIRECTION::DOWN);
+    } else if (_check_is_neighbour(_nul_index, idx, DIRECTION::LEFT)) {
+        result = _make_move(_board, _nul_index, DIRECTION::LEFT);
+    } else if (_check_is_neighbour(_nul_index, idx, DIRECTION::RIGHT)) {
+        result = _make_move(_board, _nul_index, DIRECTION::RIGHT);
     }
 
     if (result) {
@@ -128,66 +106,37 @@ QPair<QVector<int>, int> BoardModel::_gen_board(int complexity) {
 
 bool BoardModel::_check_direction(const int nul_idx, const DIRECTION direction) {
     if (direction == DIRECTION::UP) {
-        return nul_idx > _GAME_SHAPE - 1;
+        return nul_idx > GAME_SHAPE - 1;
     } else if (direction == DIRECTION::DOWN) {
-        return nul_idx < GAME_SIZE - _GAME_SHAPE;
+        return nul_idx < GAME_SIZE - GAME_SHAPE;
     } else if (direction == DIRECTION::LEFT) {
-        return  nul_idx % _GAME_SHAPE != 0;
+        return  nul_idx % GAME_SHAPE != 0;
     } else if (direction == DIRECTION::RIGHT) {
-        return nul_idx % _GAME_SHAPE != _GAME_SHAPE - 1;
-    } else {
-        return false;
+        return nul_idx % GAME_SHAPE != GAME_SHAPE - 1;
     }
 }
 
 bool BoardModel::_check_is_neighbour(const int lhs, const int rhs, const DIRECTION direction) {
-    bool result = false;
     switch (direction) {
-
         case DIRECTION::UP:
-
-             result =  lhs - _GAME_SHAPE == rhs;
-             if (!result) {
-                 result = rhs - _GAME_SHAPE == lhs;
-             }
-             break;
-
+             return lhs - GAME_SHAPE == rhs;
         case DIRECTION::DOWN:
-
-            result = lhs + _GAME_SHAPE == rhs;
-            if (!result) {
-                result = rhs + _GAME_SHAPE == lhs;
-            }
-            break;
-
+            return  lhs + GAME_SHAPE == rhs;
         case DIRECTION::LEFT:
-
-            result = lhs - 1 == rhs;
-            if (!result) {
-                result = rhs - 1 == lhs;
-            }
-            break;
-
+            return lhs - 1 == rhs;
         case DIRECTION::RIGHT:
-
-            result = lhs + 1 == rhs;
-            if (!result) {
-                result = rhs + 1 == lhs;
-            }
-            break;
+            return lhs + 1 == rhs;
     }
-
-    return result;
 }
 
 bool BoardModel::_make_move(QVector<int> &board, int& nul_idx, const DIRECTION direction) {
     if (_check_direction(nul_idx, direction)) {
         if (direction == DIRECTION::UP) {
-            qSwap(board[nul_idx], board[nul_idx - _GAME_SHAPE]);
-            nul_idx -= _GAME_SHAPE;
+            qSwap(board[nul_idx], board[nul_idx - GAME_SHAPE]);
+            nul_idx -= GAME_SHAPE;
         } else if (direction == DIRECTION::DOWN) {
-            qSwap(board[nul_idx], board[nul_idx + _GAME_SHAPE]);
-            nul_idx += _GAME_SHAPE;
+            qSwap(board[nul_idx], board[nul_idx + GAME_SHAPE]);
+            nul_idx += GAME_SHAPE;
         } else if (direction == DIRECTION::LEFT) {
             qSwap(board[nul_idx], board[nul_idx - 1]);
             nul_idx--;
@@ -221,7 +170,7 @@ QVector<int> BoardModel::_get_solved_board() {
     for (int i = 0; i < GAME_SIZE; i++) {
         final_state[i] = i + 1;
     }
-    final_state[GAME_SIZE - 1] = _EMPTY_ELEMENT;
+    final_state[GAME_SIZE - 1] = EMPTY_ELEMENT;
 
     return final_state;
 }
