@@ -1,5 +1,4 @@
 #include <QString>
-#include <QIcon>
 
 #include "fifteenpushbutton.h"
 #include "boardmodel.h"
@@ -21,12 +20,7 @@ int FifteenPushButton::get_num() const noexcept {
 
 void FifteenPushButton::set_num(int num) noexcept {
     _num = num;
-
-    QString path = QStringLiteral(":/game/icons/img/%1.jpg").arg(_num);
-    QIcon icon(path);
-
-    setIcon(icon);
-    setIconSize(QSize(60, 60));
+    setText(QString::number(_num));
 }
 
 int FifteenPushButton::get_idx() const noexcept {
