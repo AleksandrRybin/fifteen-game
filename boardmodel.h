@@ -58,7 +58,7 @@ private:
     // количество перестановок при генерации = complexity * _complexity_coef
     static constexpr int _COMPLEXITY_COEF = 30;
 
-    static constexpr int _SHIFTS_PER_STEP_COEF = 10;
+    static constexpr int _SHIFTS_PER_STEP_COEF = 100;
 
     // проверить возможна ли перестановка в этом направлении
     static bool _check_direction(const int nul_idx, const DIRECTION direction) noexcept;
