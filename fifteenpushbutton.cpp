@@ -2,27 +2,24 @@
 #include <QIcon>
 
 #include "fifteenpushbutton.h"
+#include "boardmodel.h"
 
-FifteenPushButton::FifteenPushButton(QWidget *parent) : QPushButton(parent)
-{
+FifteenPushButton::FifteenPushButton(QWidget *parent)
+    : QPushButton(parent) {
     setFixedSize(QSize(57, 55));
 }
 
-void FifteenPushButton::swap_nums(FifteenPushButton *lhs, FifteenPushButton *rhs)
-{
-    quint8 tmp_num = lhs->_num;
-
+void FifteenPushButton::swap_nums(FifteenPushButton *lhs, FifteenPushButton *rhs) noexcept {
+    int tmp_num = lhs->_num;
     lhs->set_num(rhs->_num);
     rhs->set_num(tmp_num);
 }
 
-quint8 FifteenPushButton::get_num() const
-{
+int FifteenPushButton::get_num() const noexcept {
     return _num;
 }
 
-void FifteenPushButton::set_num(quint8 num)
-{
+void FifteenPushButton::set_num(int num) noexcept {
     _num = num;
 
     QString path = QStringLiteral(":/game/icons/img/%1.jpg").arg(_num);
@@ -32,19 +29,16 @@ void FifteenPushButton::set_num(quint8 num)
     setIconSize(QSize(60, 60));
 }
 
-quint8 FifteenPushButton::get_idx() const
-{
+int FifteenPushButton::get_idx() const noexcept {
     return _idx;
 }
 
-void FifteenPushButton::set_idx(quint8 idx)
-{
+void FifteenPushButton::set_idx(int idx) noexcept {
     _idx = idx;
 }
 
-void FifteenPushButton::mousePressEvent(QMouseEvent *e)
-{
-    if (_num != 0) {
+void FifteenPushButton::mousePressEvent(QMouseEvent *e) {
+    if (_num != BoardModel::EMPTY_ELEMENT) {
         emit fifteen_btn_clicked(_idx);
     }
 }

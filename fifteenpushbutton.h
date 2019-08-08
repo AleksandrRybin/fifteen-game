@@ -12,20 +12,20 @@ public:
     explicit FifteenPushButton(QWidget *parent = nullptr);
 
     // поменять отображаеммые номера на кнопках
-    static void swap_nums(FifteenPushButton* lhs, FifteenPushButton* rhs);
+    static void swap_nums(FifteenPushButton* lhs, FifteenPushButton* rhs) noexcept;
 
-    quint8 get_num() const;
-    void set_num(quint8 num);
+    int get_num() const noexcept;
+    void set_num(int num) noexcept;
 
-    quint8 get_idx() const;
-    void set_idx(quint8 idx);
+    int get_idx() const noexcept;
+    void set_idx(int idx) noexcept;
 
 signals:
-    void fifteen_btn_clicked(quint8 idx);
+    void fifteen_btn_clicked(int idx);
 
 private:
-    quint8 _num; // отобржаемое число
-    quint8 _idx; // индекс элемента - соответствует индексу в модели
+    int _num; // отобржаемое число
+    int _idx; // индекс элемента - соответствует индексу в модели
 
     virtual void mousePressEvent(QMouseEvent *e) override;
 };
