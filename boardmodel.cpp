@@ -6,6 +6,7 @@ BoardModel::BoardModel()
     : _board(_get_solved_board()),
       _nul_index(GAME_SIZE - 1),
       _is_solved(true),
+      _start_board(_board),
       _start_nul_index(_nul_index),
       _start_is_solved(_is_solved),
       _num_shifts(0),
@@ -27,6 +28,13 @@ BoardModel::BoardModel(bool is_rnd, int complexity)
                 _board       = board;
                 _start_board = _board;
                 _nul_index   = nul_index;
+                _board            = board;
+                _nul_index        = nul_index;
+                _is_solved        = is_solved;
+
+                _start_board      = _board;
+                _start_nul_index  = _nul_index;
+                _start_is_solved  = _is_solved;
             }
         }
     }
