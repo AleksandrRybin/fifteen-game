@@ -33,7 +33,7 @@ public:
     const QVector<int>& get_board() const noexcept;
 
     // вернуть к начальной расстановке
-    void set_start_board();
+    void set_start_board() noexcept;
 
     // совершить перестановку
     // если перестановка совершена вернуть
@@ -44,7 +44,7 @@ public:
     // вернуться на шаг назад
     // если успешно, то вернуть индексы элементов,
     // которые поменялись местами
-    QPair<bool, QPair<QVariant, QVariant>> back_move();
+    QPair<bool, QPair<QVariant, QVariant>> back_move() noexcept;
 
 private:
     enum class DIRECTION {
@@ -58,21 +58,23 @@ private:
     // количество перестановок при генерации = complexity * _complexity_coef
     static constexpr int _COMPLEXITY_COEF = 30;
 
+    static constexpr int _SHIFTS_PER_STEP_COEF = 10;
+
     // проверить возможна ли перестановка в этом направлении
-    static bool _check_direction(const int nul_idx, const DIRECTION direction);
+    static bool _check_direction(const int nul_idx, const DIRECTION direction) noexcept;
 
     // проверить является ли элемент по индексу rhs
     // соседом элементу по индексу lhs в данном направлении
-    static bool _check_is_neighbour(const int lhs, const int rhs, const DIRECTION direction);
+    static bool _check_is_neighbour(const int lhs, const int rhs, const DIRECTION direction) noexcept;
 
     // сделать перестановку если возможно
-    static bool _make_move(QVector<int>& board, int& nul_idx, const DIRECTION direction);
+    static bool _make_move(QVector<int>& board, int& nul_idx, const DIRECTION direction) noexcept;
 
     // получить решённую перестановку
     static QVector<int> _get_solved_board();
 
     // получить случайное направление
-    static DIRECTION _gen_direction();
+    static DIRECTION _gen_direction() noexcept;
 
     // сгенерировать расстановку
     // complexity - сложность генерируемой расстановки
@@ -80,7 +82,7 @@ private:
 
     // проверить решена ли расстановка
     // board - расстановка для проверки
-    static bool _check_solved(const QVector<int>& board);
+    static bool _check_solved(const QVector<int>& board) noexcept;
 
     QVector<int>              _board;             // расстановка
     int                       _nul_index;         // индекс пустого элемента

@@ -15,7 +15,7 @@ BoardModel::BoardModel()
 BoardModel::BoardModel(bool is_rnd, int complexity)
     : BoardModel() {
     if (is_rnd) {
-        _states.reserve(complexity * _COMPLEXITY_COEF);
+        _states.reserve(complexity * _COMPLEXITY_COEF * _SHIFTS_PER_STEP_COEF);
 
         while (_is_solved) {
             const auto rnd_result = _gen_board(complexity * _COMPLEXITY_COEF);
@@ -24,10 +24,6 @@ BoardModel::BoardModel(bool is_rnd, int complexity)
             const auto is_solved  = _check_solved(board);
 
             if (!is_solved) {
-                _is_solved   = is_solved;
-                _board       = board;
-                _start_board = _board;
-                _nul_index   = nul_index;
                 _board            = board;
                 _nul_index        = nul_index;
                 _is_solved        = is_solved;
@@ -52,7 +48,7 @@ const QVector<int>& BoardModel::get_board() const noexcept {
     return _board;
 }
 
-void BoardModel::set_start_board() {
+void BoardModel::set_start_board() noexcept{
     if (_num_shifts != 0) {
         _board      = _start_board;
         _nul_index  = _start_nul_index;
@@ -87,7 +83,7 @@ QPair<bool, QVariant> BoardModel::move(int idx) {
     }
 }
 
-QPair<bool, QPair<QVariant, QVariant> > BoardModel::back_move() {
+QPair<bool, QPair<QVariant, QVariant> > BoardModel::back_move() noexcept {
     if (!_states.empty()) {
         const auto prev = _states.pop();
         qSwap(_board[prev.first], _board[prev.second]);
@@ -112,7 +108,7 @@ QPair<QVector<int>, int> BoardModel::_gen_board(int complexity) {
     return {final_state, nul_index};
 }
 
-bool BoardModel::_check_direction(const int nul_idx, const DIRECTION direction) {
+bool BoardModel::_check_direction(const int nul_idx, const DIRECTION direction) noexcept {
     if (direction == DIRECTION::UP) {
         return nul_idx > GAME_SHAPE - 1;
     } else if (direction == DIRECTION::DOWN) {
@@ -124,7 +120,7 @@ bool BoardModel::_check_direction(const int nul_idx, const DIRECTION direction) 
     }
 }
 
-bool BoardModel::_check_is_neighbour(const int lhs, const int rhs, const DIRECTION direction) {
+bool BoardModel::_check_is_neighbour(const int lhs, const int rhs, const DIRECTION direction) noexcept {
     switch (direction) {
         case DIRECTION::UP:
              return lhs - GAME_SHAPE == rhs;
@@ -137,7 +133,7 @@ bool BoardModel::_check_is_neighbour(const int lhs, const int rhs, const DIRECTI
     }
 }
 
-bool BoardModel::_make_move(QVector<int> &board, int& nul_idx, const DIRECTION direction) {
+bool BoardModel::_make_move(QVector<int>& board, int& nul_idx, const DIRECTION direction) noexcept {
     if (_check_direction(nul_idx, direction)) {
         if (direction == DIRECTION::UP) {
             qSwap(board[nul_idx], board[nul_idx - GAME_SHAPE]);
@@ -159,7 +155,7 @@ bool BoardModel::_make_move(QVector<int> &board, int& nul_idx, const DIRECTION d
     }
 }
 
-BoardModel::DIRECTION BoardModel::_gen_direction() {
+BoardModel::DIRECTION BoardModel::_gen_direction() noexcept {
     auto gen = QRandomGenerator::global();
     switch (gen->bounded(1, 5)) {
         case 1:
@@ -183,7 +179,7 @@ QVector<int> BoardModel::_get_solved_board() {
     return final_state;
 }
 
-bool BoardModel::_check_solved(const QVector<int>& board) {
+bool BoardModel::_check_solved(const QVector<int>& board) noexcept {
     int num_invs = 0;
 
     for (int i = 0; i < GAME_SIZE; i++) {
