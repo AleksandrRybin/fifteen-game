@@ -9,6 +9,7 @@ FifteenPushButton::FifteenPushButton(QWidget *parent)
     setStyleSheet("FifteenPushButton {width: 55px; height: 55px;"
                   "font-size : 20px; background-color: #f0e68c; }"
                   "FifteenPushButton:hover { border: 3px solid #ff5722; }"
+                  "FifteenPushButton:disabled { background-color: #607d7a; }"
     );
 }
 
