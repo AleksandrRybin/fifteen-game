@@ -2,13 +2,34 @@ FifteenPushButton {
     background-color: #f0e68c;
     width: 55px;
     height: 55px;
-    font-size: 20px;
+    font-size: 22px;
+    font-style: bold;
+    margin: 0.35px;
 }
 
 FifteenPushButton:hover {
-    border: 3px solid #ff5722;
+    border: 4px solid #ff5722;
 }
 
 FifteenPushButton:disabled {
     background-color: #607d7a;
+}
+
+#MainWindow {
+    background-color: #f1f1f1;
+}
+
+#new_game_btn {
+    border: 2px solid #cddc39;
+    height: 27px;
+}
+
+#start_again_btn {
+    border: 2px solid #2196F3;
+    height: 27px;
+}
+
+#back_move_btn {
+    border: 2px solid #ff5722;
+    height: 27px;
 }
