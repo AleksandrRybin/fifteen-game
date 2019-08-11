@@ -6,4 +6,7 @@
         <file>img/back.png</file>
         <file>img/new.png</file>
     </qresource>
+    <qresource prefix="/style">
+        <file>style.qss</file>
+    </qresource>
 </RCC>

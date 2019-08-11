@@ -4,14 +4,7 @@
 #include "boardmodel.h"
 
 FifteenPushButton::FifteenPushButton(QWidget *parent)
-    : QPushButton(parent) {
-    // цвета из w3.css https://www.w3schools.com/w3css
-    setStyleSheet("FifteenPushButton {width: 55px; height: 55px;"
-                  "font-size : 20px; background-color: #f0e68c; }"
-                  "FifteenPushButton:hover { border: 3px solid #ff5722; }"
-                  "FifteenPushButton:disabled { background-color: #607d7a; }"
-    );
-}
+    : QPushButton(parent) {}
 
 void FifteenPushButton::swap_nums(FifteenPushButton *lhs, FifteenPushButton *rhs) noexcept {
     const int tmp_num = lhs->_num;

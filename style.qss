@@ -1,0 +1,14 @@
+FifteenPushButton {
+    background-color: #f0e68c;
+    width: 55px;
+    height: 55px;
+    font-size: 20px;
+}
+
+FifteenPushButton:hover {
+    border: 3px solid #ff5722;
+}
+
+FifteenPushButton:disabled {
+    background-color: #607d7a;
+}
