@@ -12,7 +12,7 @@ BoardModel::BoardModel()
       _num_shifts(0),
       _states{} {}
 
-BoardModel::BoardModel(bool is_rnd, int complexity)
+BoardModel::BoardModel(const bool is_rnd, const int complexity)
     : BoardModel() {
     if (is_rnd) {
         _states.reserve(complexity * _COMPLEXITY_COEF * _SHIFTS_PER_STEP_COEF);
@@ -58,7 +58,7 @@ void BoardModel::set_start_board() noexcept{
     }
 }
 
-QPair<bool, QVariant> BoardModel::move(int idx) {
+QPair<bool, QVariant> BoardModel::move(const int idx) {
     bool result = false;
     const int swap_idx = _nul_index;
 
@@ -97,7 +97,7 @@ QPair<bool, QPair<QVariant, QVariant> > BoardModel::back_move() noexcept {
     }
 }
 
-QPair<QVector<int>, int> BoardModel::_gen_board(int complexity) {
+QPair<QVector<int>, int> BoardModel::_gen_board(const int complexity) {
     auto final_state = _get_solved_board();
     int nul_index = GAME_SIZE - 1;
 
@@ -118,6 +118,8 @@ bool BoardModel::_check_direction(const int nul_idx, const DIRECTION direction) 
     } else if (direction == DIRECTION::RIGHT) {
         return nul_idx % GAME_SHAPE != GAME_SHAPE - 1;
     }
+
+    return false;
 }
 
 bool BoardModel::_check_is_neighbour(const int lhs, const int rhs, const DIRECTION direction) noexcept {
@@ -130,6 +132,8 @@ bool BoardModel::_check_is_neighbour(const int lhs, const int rhs, const DIRECTI
             return lhs - 1 == rhs;
         case DIRECTION::RIGHT:
             return lhs + 1 == rhs;
+        default:
+            return false;
     }
 }
 

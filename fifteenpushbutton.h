@@ -18,7 +18,7 @@ public:
     void set_num(int num) noexcept;
 
     int get_idx() const noexcept;
-    void set_idx(int idx) noexcept;
+    void set_idx(const int idx) noexcept;
 
 signals:
     void fifteen_btn_clicked(int idx);

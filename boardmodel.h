@@ -23,7 +23,7 @@ public:
 
     // is_rnd - создать случайную расстановку или нет
     // complexity - сложность генерируемой расстановки
-    BoardModel(bool is_rnd, int complexity);
+    BoardModel(const bool is_rnd, const int complexity);
 
     // проверить решена ли задача
     // если да то вернуть кол-во перестановок
@@ -39,7 +39,7 @@ public:
     // если перестановка совершена вернуть
     // индекс пустой клетки, которая была переставлена
     // idx - индекс переставляемого элемента
-    QPair<bool, QVariant> move(int idx);
+    QPair<bool, QVariant> move(const int idx);
 
     // вернуться на шаг назад
     // если успешно, то вернуть индексы элементов,
@@ -78,7 +78,7 @@ private:
 
     // сгенерировать расстановку
     // complexity - сложность генерируемой расстановки
-    static QPair<QVector<int>, int> _gen_board(int complexity);
+    static QPair<QVector<int>, int> _gen_board(const int complexity);
 
     // проверить решена ли расстановка
     // board - расстановка для проверки

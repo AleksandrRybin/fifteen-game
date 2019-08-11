@@ -63,7 +63,7 @@ void BoardView::move(int idx) {
     const auto is_moved = result.first;
 
     if (is_moved) {
-        int nul_idx = result.second.toInt();
+        const int nul_idx = result.second.toInt();
         FifteenPushButton::swap_nums(_buttons[idx], _buttons[nul_idx]);
 
         check_game_end();
@@ -91,7 +91,7 @@ void BoardView::check_game_end() {
     const auto is_solved = is_solved_result.first;
 
     if (is_solved) {
-        int num_shifts = is_solved_result.second.toInt();
+        const int num_shifts = is_solved_result.second.toInt();
         const auto msg = tr("Задача решена." "\n" "Использовано %1 перестановок.").arg(num_shifts);
         QMessageBox::information(this, tr("Игра закончена"), msg);
     }

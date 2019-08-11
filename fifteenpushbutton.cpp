@@ -14,7 +14,7 @@ FifteenPushButton::FifteenPushButton(QWidget *parent)
 }
 
 void FifteenPushButton::swap_nums(FifteenPushButton *lhs, FifteenPushButton *rhs) noexcept {
-    int tmp_num = lhs->_num;
+    const int tmp_num = lhs->_num;
     lhs->set_num(rhs->_num);
     rhs->set_num(tmp_num);
 }
@@ -40,7 +40,7 @@ int FifteenPushButton::get_idx() const noexcept {
     return _idx;
 }
 
-void FifteenPushButton::set_idx(int idx) noexcept {
+void FifteenPushButton::set_idx(const int idx) noexcept {
     _idx = idx;
 }
 
