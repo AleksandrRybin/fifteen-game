@@ -55,9 +55,7 @@ private:
     };
 
     // коэффицент сложности
-    // количество перестановок при генерации = complexity * _complexity_coef
-    static constexpr int _COMPLEXITY_COEF = 30;
-
+    static constexpr int _COMPLEXITY_COEF = 10;
     static constexpr int _SHIFTS_PER_STEP_COEF = 100;
 
     // проверить возможна ли перестановка в этом направлении
@@ -78,7 +76,9 @@ private:
 
     // сгенерировать расстановку
     // complexity - сложность генерируемой расстановки
-    static QPair<QVector<int>, int> _gen_board(const int complexity);
+    static QPair<QVector<int>, int> _gen_board(const int num_shifts);
+
+    static int _compute_actual_complexity(const int complexity);
 
     // проверить решена ли расстановка
     // board - расстановка для проверки

@@ -1,4 +1,5 @@
 #include <QRandomGenerator>
+#include <QtMath>
 
 #include "boardmodel.h"
 
@@ -15,10 +16,11 @@ BoardModel::BoardModel()
 BoardModel::BoardModel(const bool is_rnd, const int complexity)
     : BoardModel() {
     if (is_rnd) {
-        _states.reserve(complexity * _COMPLEXITY_COEF * _SHIFTS_PER_STEP_COEF);
+        const int actual_complexity = _compute_actual_complexity(complexity);
+        _states.reserve(actual_complexity * _SHIFTS_PER_STEP_COEF);
 
         while (_is_solved) {
-            const auto rnd_result = _gen_board(complexity * _COMPLEXITY_COEF);
+            const auto rnd_result = _gen_board(actual_complexity);
             const auto board      = rnd_result.first;
             const auto nul_index  = rnd_result.second;
             const auto is_solved  = _check_solved(board);
@@ -97,11 +99,16 @@ QPair<bool, QPair<QVariant, QVariant> > BoardModel::back_move() noexcept {
     }
 }
 
-QPair<QVector<int>, int> BoardModel::_gen_board(const int complexity) {
+int BoardModel::_compute_actual_complexity(const int complexity) {
+    const int complexity_num = complexity * _COMPLEXITY_COEF;
+    return qFloor(complexity_num * qLn(complexity_num));
+}
+
+QPair<QVector<int>, int> BoardModel::_gen_board(const int num_shifts) {
     auto final_state = _get_solved_board();
     int nul_index = GAME_SIZE - 1;
 
-    for (int i = 0; i < complexity; i++) {
+    for (int i = 0; i < num_shifts; i++) {
         _make_move(final_state, nul_index, _gen_direction());
     }
 

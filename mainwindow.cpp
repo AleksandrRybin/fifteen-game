@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    ui->complexity_num_sldr->setRange(1, 10);
+    ui->complexity_num_sldr->setRange(1, 5);
     ui->complexity_num_sldr->setValue(1);
     ui->complexity_num_sldr->setSingleStep(1);
 
