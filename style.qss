@@ -22,14 +22,21 @@ FifteenPushButton:disabled {
 #new_game_btn {
     border: 2px solid #cddc39;
     height: 27px;
+    border-radius: 5px;
 }
 
 #start_again_btn {
     border: 2px solid #2196F3;
     height: 27px;
+    border-radius: 5px;
 }
 
 #back_move_btn {
     border: 2px solid #ff5722;
     height: 27px;
+    border-radius: 5px;
+}
+
+#complexity_num_sldr {
+    border-radius: 5px;
 }
