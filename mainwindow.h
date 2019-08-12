@@ -3,14 +3,11 @@
 
 #include <QMainWindow>
 
-#include "boardview.h"
-
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:

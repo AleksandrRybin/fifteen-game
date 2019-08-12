@@ -3,8 +3,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+    ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
     ui->complexity_num_sldr->setRange(1, 10);
@@ -14,22 +13,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->board_view->set_new_model(true, ui->complexity_num_sldr->value());
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::on_new_game_btn_clicked()
-{
+void MainWindow::on_new_game_btn_clicked() {
     ui->board_view->set_new_model(true, ui->complexity_num_sldr->value());
 }
 
-void MainWindow::on_start_again_btn_clicked()
-{
+void MainWindow::on_start_again_btn_clicked() {
     ui->board_view->set_start_board();
 }
 
-void MainWindow::on_back_move_btn_clicked()
-{
+void MainWindow::on_back_move_btn_clicked() {
     ui->board_view->back_move();
 }
