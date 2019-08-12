@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QFile>
+#include <QString>
 
 int main(int argc, char *argv[])
 {
@@ -8,11 +9,12 @@ int main(int argc, char *argv[])
 
     QFile style(":/style/style.qss");
     style.open(QFile::ReadOnly);
+    const QString style_sheet = style.readAll();
+    style.close();
 
     MainWindow w;
-    w.setStyleSheet(style.readAll());
+    w.setStyleSheet(style_sheet);
     w.show();
 
-    style.close();
     return a.exec();
 }
