@@ -40,7 +40,7 @@ private:
 
     // проверить решена ли расстановка
     // если да вывести результат
-    void check_game_end();
+    void _check_game_end();
 
     QGridLayout*                _grid;    // layout для кнопок - элементов игры
     BoardModel*                 _model;   // игровая модель
@@ -51,7 +51,7 @@ private slots:
     // нажата игровая кнопка
     // если возможно совершить перестановку
     // idx - индекс нажатой кнопки
-    void move(int idx);
+    void _move(int idx);
 };
 
 #endif // BOARDVIEW_H

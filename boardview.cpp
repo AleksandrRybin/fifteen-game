@@ -27,7 +27,7 @@ void BoardView::set_new_model(bool is_rnd, int complexity) {
             auto new_btn = new FifteenPushButton(this);
             new_btn->set_idx(i);
             _grid->addWidget(new_btn, i / BoardModel::GAME_SHAPE, i % BoardModel::GAME_SHAPE);
-            connect(new_btn, &FifteenPushButton::fifteen_btn_clicked, this, &BoardView::move);
+            connect(new_btn, &FifteenPushButton::fifteen_btn_clicked, this, &BoardView::_move);
             _buttons[i] = new_btn;
         }
 
@@ -50,7 +50,7 @@ void BoardView::set_start_board() {
     }
 }
 
-void BoardView::move(int idx) {
+void BoardView::_move(int idx) {
     const auto result = _model->move(idx);
     const auto is_moved = result.first;
 
@@ -59,7 +59,7 @@ void BoardView::move(int idx) {
         FifteenPushButton::swap_nums(_buttons[idx], _buttons[nul_idx]);
 
         emit moved();
-        check_game_end();
+        _check_game_end();
     }
 }
 
@@ -75,11 +75,11 @@ void BoardView::back_move() {
 
         FifteenPushButton::swap_nums(lhs, rhs);
 
-        check_game_end();
+        _check_game_end();
     }
 }
 
-void BoardView::check_game_end() {
+void BoardView::_check_game_end() {
     const auto is_solved_result = _model->is_solved();
     const auto is_solved = is_solved_result.first;
 
