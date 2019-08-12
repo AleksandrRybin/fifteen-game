@@ -36,8 +36,8 @@ private:
     void check_game_end();
 
     QGridLayout*                _grid;    // layout для кнопок - элементов игры
-    QVector<FifteenPushButton*> _buttons; // кнопки - элементы игры
     BoardModel*                 _model;   // игровая модель
+    QVector<FifteenPushButton*> _buttons; // кнопки - элементы игры
 
 private slots:
 

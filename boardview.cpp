@@ -8,13 +8,8 @@
 BoardView::BoardView(QWidget *parent)
     : QWidget(parent),
       _grid(nullptr),
-      _model(nullptr) {
-
-      _buttons.resize(BoardModel::GAME_SIZE);
-      for (int i = 0; i < BoardModel::GAME_SIZE; i++) {
-          _buttons[i] = nullptr;
-      }
-}
+      _model(nullptr),
+      _buttons(BoardModel::GAME_SIZE, nullptr) {}
 
 BoardView::~BoardView() {
     delete _model;
