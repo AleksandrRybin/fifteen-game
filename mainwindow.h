@@ -21,7 +21,11 @@ private slots:
 
     void on_back_move_btn_clicked();
 
+    void on_moved();
+
 private:
+    void check_back_move_btns(const bool manual_mode = false, const bool value = true);
+
     Ui::MainWindow *ui;
 };
 

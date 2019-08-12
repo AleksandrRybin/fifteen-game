@@ -1,7 +1,5 @@
 #include <QString>
-#include <QIcon>
 #include <QMessageBox>
-#include <QFont>
 
 #include "boardview.h"
 
@@ -29,8 +27,7 @@ void BoardView::set_new_model(bool is_rnd, int complexity) {
             auto new_btn = new FifteenPushButton(this);
             new_btn->set_idx(i);
             _grid->addWidget(new_btn, i / BoardModel::GAME_SHAPE, i % BoardModel::GAME_SHAPE);
-            connect(new_btn, &FifteenPushButton::fifteen_btn_clicked,
-                    this, &BoardView::move);
+            connect(new_btn, &FifteenPushButton::fifteen_btn_clicked, this, &BoardView::move);
             _buttons[i] = new_btn;
         }
 
@@ -61,6 +58,7 @@ void BoardView::move(int idx) {
         const int nul_idx = result.second.toInt();
         FifteenPushButton::swap_nums(_buttons[idx], _buttons[nul_idx]);
 
+        emit moved();
         check_game_end();
     }
 }
@@ -90,4 +88,8 @@ void BoardView::check_game_end() {
         const auto msg = tr("Задача решена." "\n" "Использовано %1 перестановок.").arg(num_shifts);
         QMessageBox::information(this, tr("Игра закончена"), msg);
     }
+}
+
+bool BoardView::check_back_moves_available() {
+    return _model->check_back_moves_available();
 }

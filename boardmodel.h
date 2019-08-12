@@ -32,6 +32,10 @@ public:
     // получить поле
     const QVector<int>& get_board() const noexcept;
 
+    // проверить возможно ли
+    // начать новую игру или сделать шаг назад
+    bool check_back_moves_available() const noexcept;
+
     // вернуть к начальной расстановке
     void set_start_board() noexcept;
 

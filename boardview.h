@@ -29,6 +29,13 @@ public:
     // совершить шаг назад
     void back_move();
 
+    // проверить возможно ли
+    // начать новую игру или сделать шаг назад
+    bool check_back_moves_available();
+
+signals:
+    void moved();
+
 private:
 
     // проверить решена ли расстановка

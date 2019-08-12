@@ -201,3 +201,7 @@ bool BoardModel::_check_solved(const QVector<int>& board) noexcept {
 
     return num_invs == 0;
 }
+
+bool BoardModel::check_back_moves_available() const noexcept {
+    return _num_shifts != 0;
+}
