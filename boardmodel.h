@@ -39,6 +39,8 @@ public:
     // вернуть к начальной расстановке
     void set_start_board() noexcept;
 
+    void set_new_board(const bool is_rnd, const int complexity);
+
     // совершить перестановку
     // если перестановка совершена вернуть
     // индекс пустой клетки, которая была переставлена
@@ -64,6 +66,13 @@ private:
     // коэффицент кол-ва шагов на решение задачи
     static constexpr int _SHIFTS_PER_STEP_COEF = 100;
 
+    // посчитать кол-во перестановок
+    // по относительной сложности
+    static int _compute_actual_complexity(const int complexity);
+
+    // получить случайное направление
+    static DIRECTION _gen_direction() noexcept;
+
     // проверить возможна ли перестановка в этом направлении
     static bool _check_direction(const int nul_idx, const DIRECTION direction) noexcept;
 
@@ -77,20 +86,13 @@ private:
     // получить решённую перестановку
     static QVector<int> _get_solved_board();
 
-    // получить случайное направление
-    static DIRECTION _gen_direction() noexcept;
+    // проверить решена ли расстановка
+    // board - расстановка для проверки
+    static bool _check_solved(const QVector<int>& board) noexcept;
 
     // сгенерировать расстановку
     // complexity - сложность генерируемой расстановки
     static QPair<QVector<int>, int> _gen_board(const int num_shifts);
-
-    // посчитать кол-во перестановок
-    // по относительной сложности
-    static int _compute_actual_complexity(const int complexity);
-
-    // проверить решена ли расстановка
-    // board - расстановка для проверки
-    static bool _check_solved(const QVector<int>& board) noexcept;
 
     QVector<int>              _board;             // расстановка
     int                       _nul_index;         // индекс пустого элемента
