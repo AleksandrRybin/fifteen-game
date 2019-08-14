@@ -39,6 +39,7 @@ public:
     // вернуть к начальной расстановке
     void set_start_board() noexcept;
 
+    // установить новую расстановку
     void set_new_board(const bool is_rnd, const int complexity);
 
     // совершить перестановку
@@ -94,6 +95,8 @@ private:
     // complexity - сложность генерируемой расстановки
     static QPair<QVector<int>, int> _gen_board(const int num_shifts);
 
+    // вспомогательная функция для
+    // инициализации случайной расстановки
     void init_random(const int complexity);
 
     QVector<int>              _board;             // расстановка
