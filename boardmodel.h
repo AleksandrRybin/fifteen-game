@@ -94,6 +94,8 @@ private:
     // complexity - сложность генерируемой расстановки
     static QPair<QVector<int>, int> _gen_board(const int num_shifts);
 
+    void init_random(const int complexity);
+
     QVector<int>              _board;             // расстановка
     int                       _nul_index;         // индекс пустого элемента
     bool                      _is_solved;         // решена ли расстановка

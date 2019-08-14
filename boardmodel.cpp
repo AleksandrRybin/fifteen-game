@@ -16,25 +16,7 @@ BoardModel::BoardModel()
 BoardModel::BoardModel(const bool is_rnd, const int complexity)
     : BoardModel() {
     if (is_rnd) {
-        const int actual_complexity = _compute_actual_complexity(complexity);
-        _states.reserve(actual_complexity * _SHIFTS_PER_STEP_COEF);
-
-        while (_is_solved) {
-            const auto rnd_result = _gen_board(actual_complexity);
-            const auto board      = rnd_result.first;
-            const auto nul_index  = rnd_result.second;
-            const auto is_solved  = _check_solved(board);
-
-            if (!is_solved) {
-                _board            = board;
-                _nul_index        = nul_index;
-                _is_solved        = is_solved;
-
-                _start_board      = _board;
-                _start_nul_index  = _nul_index;
-                _start_is_solved  = _is_solved;
-            }
-        }
+        init_random(complexity);
     }
 }
 
@@ -57,6 +39,52 @@ void BoardModel::set_start_board() noexcept{
         _is_solved  = _start_is_solved;
         _num_shifts = 0;
         _states.clear();
+    }
+}
+
+void BoardModel::set_new_board(const bool is_rnd, const int complexity) {
+    if (is_rnd) {
+        init_random(complexity);
+    } else {
+        _board           = _get_solved_board();
+        _nul_index       = GAME_SIZE - 1;
+        _is_solved       = true;
+
+        _start_board     = _board;
+        _start_nul_index = _nul_index;
+        _start_is_solved = _is_solved;
+
+        _num_shifts      = 0;
+        _states.clear();
+    }
+}
+
+void BoardModel::init_random(const int complexity) {
+    const int actual_complexity = _compute_actual_complexity(complexity);
+    const int predicted_max_num_shifts = actual_complexity * _SHIFTS_PER_STEP_COEF;
+
+    if (_states.capacity() < predicted_max_num_shifts) {
+        _states.reserve(predicted_max_num_shifts);
+    }
+
+    bool continue_generating = true;
+    while (continue_generating) {
+        const auto rnd_result = _gen_board(actual_complexity);
+        const auto board      = rnd_result.first;
+        const auto nul_index  = rnd_result.second;
+
+        const auto is_solved  = _check_solved(board);
+        continue_generating   = is_solved;
+
+        if (!is_solved) {
+            _board            = board;
+            _nul_index        = nul_index;
+            _is_solved        = is_solved;
+
+            _start_board      = _board;
+            _start_nul_index  = _nul_index;
+            _start_is_solved  = _is_solved;
+        }
     }
 }
 

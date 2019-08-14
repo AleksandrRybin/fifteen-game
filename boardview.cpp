@@ -14,11 +14,11 @@ BoardView::~BoardView() {
 }
 
 void BoardView::set_new_model(bool is_rnd, int complexity) {
-    if (_model != nullptr) {
-        delete _model;
+    if (_model == nullptr) {
+        _model = new BoardModel(is_rnd, complexity);
+    } else {
+        _model->set_new_board(is_rnd, complexity);
     }
-
-    _model = new BoardModel(is_rnd, complexity);
 
     if (_grid == nullptr) {
         _grid = new QGridLayout(this);
