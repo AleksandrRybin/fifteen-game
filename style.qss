@@ -17,7 +17,7 @@ FifteenPushButton:disabled {
 }
 
 QMessageBox {
-    font-size: 14px;
+    font-size: 15.5px;
     background-color: #f1f1f1;
     messagebox-text-interaction-flags: 1;
 }
