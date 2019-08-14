@@ -7,8 +7,7 @@
 #include <QStack>
 
 // модель игры
-class BoardModel
-{
+class BoardModel {
 public:
     // размер стороны игрового квадрата
     static constexpr int GAME_SHAPE = 4;
